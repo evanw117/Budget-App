@@ -24,3 +24,10 @@ server:
     include-message: never
     include-stacktrace: never
     include-binding-errors: never
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    issuer: finance-api
+    audience: finance-api
+    ttl-seconds: ${JWT_TTL_SECONDS:900}
