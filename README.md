@@ -140,3 +140,12 @@ Open Session in View remains disabled and Hibernate JDBC timestamps use UTC.
 
 Phase 2 stops at authentication and users. Accounts, transactions, budgets,
 recurring payments, savings, imports, and analytics remain for later phases.
+
+## Frontend foundation
+
+The Next.js + TypeScript + Tailwind frontend is in `frontend/`.
+Run `cd frontend`, `npm ci`, then `npm run dev` and open http://localhost:3000.
+See [the frontend README](frontend/README.md) for architecture, testing, and
+cookie-based integration with the existing authentication API.
+The financial dashboard uses clearly labelled mock data; no new financial backend
+features were added. This is the requested frontend Phase 3 foundation.

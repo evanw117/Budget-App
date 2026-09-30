@@ -1,0 +1,168 @@
+import type { DashboardData, Money } from "@/types/dashboard";
+const usd = (amount: string): Money => ({ amount, currency: "USD" });
+
+// Deliberately static, fictional USD data. Totals and percentages represent a
+// future backend response; no financial aggregation belongs in the client.
+export const mockDashboard: DashboardData = {
+  period: "September 2026",
+  summaries: [
+    {
+      label: "Current balance",
+      value: usd("12480.50"),
+      note: "Across your sample accounts",
+      icon: "balance",
+    },
+    {
+      label: "Monthly income",
+      value: usd("5800.00"),
+      note: "Money received this month",
+      icon: "income",
+    },
+    {
+      label: "Monthly spending",
+      value: usd("3240.00"),
+      note: "Everyday costs & commitments",
+      icon: "spending",
+    },
+    {
+      label: "Monthly savings",
+      value: usd("2560.00"),
+      note: "A little closer to what’s next",
+      icon: "savings",
+    },
+  ],
+  transactions: [
+    {
+      id: "t1",
+      merchant: "Trader Joe’s",
+      description: "Weekly groceries",
+      category: "Groceries",
+      date: "2026-09-27",
+      amount: usd("86.42"),
+      direction: "expense",
+      initials: "TJ",
+    },
+    {
+      id: "t2",
+      merchant: "Monthly salary",
+      description: "Checking account",
+      category: "Income",
+      date: "2026-09-25",
+      amount: usd("5800.00"),
+      direction: "income",
+      initials: "IN",
+    },
+    {
+      id: "t3",
+      merchant: "Blue Bottle Coffee",
+      description: "Coffee with a friend",
+      category: "Dining",
+      date: "2026-09-24",
+      amount: usd("12.50"),
+      direction: "expense",
+      initials: "BB",
+    },
+    {
+      id: "t4",
+      merchant: "CTA Ventra",
+      description: "Getting around Chicago",
+      category: "Transport",
+      date: "2026-09-23",
+      amount: usd("25.00"),
+      direction: "expense",
+      initials: "CT",
+    },
+    {
+      id: "t5",
+      merchant: "Apartment rent",
+      description: "Your place in the city",
+      category: "Housing",
+      date: "2026-09-01",
+      amount: usd("1800.00"),
+      direction: "expense",
+      initials: "RE",
+    },
+  ],
+  spending: [
+    {
+      category: "Housing",
+      amount: usd("1800"),
+      percentage: 55.6,
+      color: "#17675b",
+    },
+    {
+      category: "Groceries",
+      amount: usd("540"),
+      percentage: 16.7,
+      color: "#488c80",
+    },
+    {
+      category: "Dining",
+      amount: usd("360"),
+      percentage: 11.1,
+      color: "#79a99e",
+    },
+    {
+      category: "Transport",
+      amount: usd("180"),
+      percentage: 5.5,
+      color: "#aa8a55",
+    },
+    {
+      category: "Utilities",
+      amount: usd("180"),
+      percentage: 5.5,
+      color: "#768c9f",
+    },
+    {
+      category: "Other",
+      amount: usd("180"),
+      percentage: 5.6,
+      color: "#7e8182",
+    },
+  ],
+  upcoming: [
+    {
+      id: "r1",
+      name: "Apartment rent",
+      detail: "Housing · monthly",
+      date: "2026-10-01",
+      amount: usd("1800"),
+      initials: "RE",
+    },
+    {
+      id: "r2",
+      name: "Spotify",
+      detail: "Subscription · monthly",
+      date: "2026-10-03",
+      amount: usd("11.99"),
+      initials: "SP",
+    },
+    {
+      id: "r3",
+      name: "Internet",
+      detail: "Utilities · monthly",
+      date: "2026-10-05",
+      amount: usd("65"),
+      initials: "WI",
+    },
+  ],
+  goals: [
+    {
+      id: "g1",
+      name: "Emergency fund",
+      description: "A little more peace of mind",
+      saved: usd("6800"),
+      target: usd("10000"),
+      percentage: 68,
+    },
+    {
+      id: "g2",
+      name: "Settling into Chicago",
+      description: "Make your new place feel like home",
+      saved: usd("1800"),
+      target: usd("3000"),
+      percentage: 60,
+    },
+  ],
+};
