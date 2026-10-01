@@ -16,6 +16,7 @@ import {
   Repeat2,
   Settings,
   Target,
+  Tags,
   Wallet,
   X,
 } from "lucide-react";
@@ -24,6 +25,7 @@ import { navigation } from "@/lib/navigation";
 const icons = {
   dashboard: LayoutDashboard,
   accounts: Wallet,
+  categories: Tags,
   transactions: ArrowLeftRight,
   budgets: ChartNoAxesCombined,
   recurring: Repeat2,
@@ -37,14 +39,14 @@ function Brand() {
     <Link
       href="/"
       className="flex items-center gap-3 rounded-lg"
-      aria-label="Waymark dashboard"
+      aria-label="Budget App dashboard"
     >
       <span className="rounded-xl bg-accent p-2.5 text-white">
         <Compass className="size-6" aria-hidden="true" />
       </span>
       <span>
         <span className="block text-xl font-bold tracking-tight">
-          waymark<span className="text-accent">.</span>
+          Budget App
         </span>
         <span className="whitespace-nowrap text-[9px] font-medium tracking-[0.04em] text-muted">
           FINANCE & RELOCATION
@@ -129,7 +131,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       >
         Skip to content
       </a>
-      <aside className="fixed inset-y-0 left-0 hidden w-60 border-r border-line bg-white lg:block">
+      <aside className="fixed inset-y-0 left-0 hidden w-60 overflow-y-auto border-r border-line bg-white lg:block">
         <SidebarContent />
       </aside>
       <dialog
@@ -174,7 +176,10 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
           <div className="flex items-center gap-3 sm:gap-5">
             <span className="rounded-full border border-[#d7e6dc] bg-[#f1f7f2] px-2.5 py-1 text-[11px] font-medium text-accent">
-              Demo<span className="hidden sm:inline"> workspace</span>
+              {["/accounts", "/categories", "/transactions"].includes(pathname)
+                ? "Personal"
+                : "Demo"}
+              <span className="hidden sm:inline"> workspace</span>
             </span>
             <Link
               href="/login"

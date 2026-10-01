@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    ProblemDetail notFound(ResourceNotFoundException exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "Resource not found");
+    }
     @ExceptionHandler(DuplicateEmailException.class)
     ProblemDetail duplicate(DuplicateEmailException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, "Email is already registered");
@@ -26,9 +30,9 @@ public class ApiExceptionHandler {
         return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, "Invalid credentials");
     }
 
-    @ExceptionHandler({MethodArgumentNotValidException.class, HttpMessageNotReadableException.class})
+    @ExceptionHandler({MethodArgumentNotValidException.class, HttpMessageNotReadableException.class, org.springframework.web.method.annotation.MethodArgumentTypeMismatchException.class})
     ProblemDetail invalid(Exception exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST,
-                "Invalid request. Check email, password and display name requirements.");
+                "Invalid request. Check required fields, formats and allowed values.");
     }
 }

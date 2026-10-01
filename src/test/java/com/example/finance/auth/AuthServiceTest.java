@@ -18,12 +18,13 @@ class AuthServiceTest {
     @Mock UserRepository users;
     @Mock PasswordEncoder passwords;
     @Mock TokenService tokens;
+    @Mock com.example.finance.category.DefaultCategoryService defaults;
     AuthService auth;
 
     @BeforeEach
     void setUp() {
         when(passwords.encode(anyString())).thenReturn("encoded-password");
-        auth = new AuthService(users, passwords, tokens);
+        auth = new AuthService(users, passwords, tokens, defaults);
     }
 
     @Test
@@ -32,6 +33,7 @@ class AuthServiceTest {
         var result = auth.register(new RegisterRequest(" Alice@Example.com ", "long-password-123", " Alice "));
         var captor = ArgumentCaptor.forClass(User.class);
         verify(users).saveAndFlush(captor.capture());
+        verify(defaults).createFor(captor.getValue());
         assertThat(captor.getValue().getPasswordHash()).isEqualTo("encoded-password");
         verify(passwords).encode("long-password-123");
         assertThat(result.email()).isEqualTo("alice@example.com");

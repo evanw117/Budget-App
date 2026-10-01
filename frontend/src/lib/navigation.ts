@@ -12,6 +12,12 @@ export const navigation = [
     description: "A home for your bank accounts, balances, and currencies.",
   },
   {
+    href: "/categories",
+    label: "Categories",
+    icon: "categories",
+    description: "Personal labels for income, expenses, and relocation.",
+  },
+  {
     href: "/transactions",
     label: "Transactions",
     icon: "transactions",

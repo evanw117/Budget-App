@@ -1,14 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { backendRequest } from "@/lib/api/backend";
 
-const cookieName = "waymark_session";
-const noCache = { "Cache-Control": "no-store" };
-const cookieOptions = {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "lax" as const,
-  path: "/",
-};
+import { cookieName, cookieOptions, noCache } from "@/lib/api/session";
 type Context = { params: Promise<{ action: string }> };
 function failure(status: number, message: string) {
   return NextResponse.json({ error: message }, { status, headers: noCache });

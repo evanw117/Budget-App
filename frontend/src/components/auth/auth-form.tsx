@@ -83,7 +83,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
       </h1>
       <p className="mb-8 mt-3 text-center text-sm leading-6 text-muted">
         {user
-          ? "You’re signed in. Your financial workspace is still a sample preview."
+          ? "You’re signed in. Your accounts and categories are ready to manage. The dashboard remains a sample preview."
           : "A little clarity for everyday life and everything ahead."}
       </p>
       <Card className="p-6 sm:p-8">
@@ -95,8 +95,8 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
         {user ? (
           <div className="space-y-5">
             <p className="break-words text-sm text-muted">{user.email}</p>
-            <Link href="/" className={`${buttonStyles()} w-full`}>
-              Explore the sample dashboard
+            <Link href="/accounts" className={`${buttonStyles()} w-full`}>
+              Manage your accounts
             </Link>
             <Button
               variant="secondary"
@@ -161,7 +161,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
               {busy ? "Please wait…" : register ? "Create account" : "Sign in"}
             </Button>
             <p className="text-center text-sm text-muted">
-              {register ? "Already have an account?" : "New to Waymark?"}{" "}
+              {register ? "Already have an account?" : "New to Budget App?"}{" "}
               <Link
                 className="font-semibold text-accent underline underline-offset-4"
                 href={register ? "/login" : "/register"}

@@ -12,9 +12,11 @@ public class AuthService {
     private final PasswordEncoder passwords;
     private final TokenService tokens;
     private final String dummyHash;
+    private final com.example.finance.category.DefaultCategoryService defaults;
 
-    public AuthService(UserRepository users, PasswordEncoder passwords, TokenService tokens) {
+    public AuthService(UserRepository users, PasswordEncoder passwords, TokenService tokens, com.example.finance.category.DefaultCategoryService defaults) {
         this.users = users;
+        this.defaults = defaults;
         this.passwords = passwords;
         this.tokens = tokens;
         this.dummyHash = passwords.encode(java.util.UUID.randomUUID().toString());
@@ -25,7 +27,9 @@ public class AuthService {
         if (users.existsByEmail(request.email())) { throw new DuplicateEmailException(); }
         User user = new User(request.email(), passwords.encode(request.password()), request.displayName());
         // The database unique constraint also protects concurrent registrations.
-        return UserResponse.from(users.saveAndFlush(user));
+        user = users.saveAndFlush(user);
+        defaults.createFor(user);
+        return UserResponse.from(user);
     }
 
     @Transactional(readOnly = true)

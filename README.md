@@ -1,8 +1,7 @@
 # Personal Finance & US Relocation Tracker
 
 Java 21 / Spring Boot backend organized as a feature-based modular monolith.
-Phases 1 and 2 provide PostgreSQL infrastructure, a health endpoint, and user
-registration/login with JWT authentication. Financial features are not implemented.
+The backend provides PostgreSQL infrastructure, JWT authentication, private accounts/categories, and transactions with calculated balances. The Budget App frontend combines a sample dashboard with real account, category, and transaction management.
 
 ## Local development
 
@@ -122,10 +121,15 @@ com.example.finance/
   health/       Public status endpoint and DTO
   auth/         Registration/login controller, service, requests, token issuing
   user/         User entity, role, repository, current-user service and DTO
+  account/      Owned accounts, calculated balances, and archive/restore
+  transaction/  Owned income/expenses, filtering, pagination, and balance queries
+  category/     Private categories and transactional registration defaults
   config/       Security filter chain, password encoder, JWT configuration
   common/       Safe authentication/validation API error responses
 src/main/resources/db/migration/
   V1__create_users.sql
+  V2__accounts_and_categories.sql
+  V3__transactions.sql
 ```
 
 Controllers deal with HTTP; services own business rules and transaction boundaries.
@@ -138,8 +142,7 @@ Hibernate remains `ddl-auto: validate`, so it cannot silently alter the schema.
 Never modify an already applied migration; introduce a new version instead.
 Open Session in View remains disabled and Hibernate JDBC timestamps use UTC.
 
-Phase 2 stops at authentication and users. Accounts, transactions, budgets,
-recurring payments, savings, imports, and analytics remain for later phases.
+Phase 5 adds transactions and calculated account balances. Budgets, recurring payments, savings, imports, and analytics remain for later phases.
 
 ## Frontend foundation
 
@@ -147,5 +150,15 @@ The Next.js + TypeScript + Tailwind frontend is in `frontend/`.
 Run `cd frontend`, `npm ci`, then `npm run dev` and open http://localhost:3000.
 See [the frontend README](frontend/README.md) for architecture, testing, and
 cookie-based integration with the existing authentication API.
-The financial dashboard uses clearly labelled mock data; no new financial backend
-features were added. This is the requested frontend Phase 3 foundation.
+The dashboard introduced in Phase 3 uses clearly labelled mock data. Accounts, Categories, and Transactions connect to the backend; see the guides below.
+
+## Accounts and categories (Phase 4)
+
+Accounts and Categories now use real, authenticated APIs. See [the Phase 4 design and API guide](docs/phase4-accounts-categories.md) for ownership, defaults, migrations, balance semantics, and testing. The dashboard remains sample data.
+
+## Transactions (Phase 5)
+
+Budget App now supports income and expense transactions, editing/deletion, filters, and pagination.
+Account balances are calculated by the backend from opening balances and transactions.
+Open http://localhost:3000/transactions after signing in.
+See [the Phase 5 guide](docs/phase5-transactions.md) for the API, financial rules, security, testing, and limitations.

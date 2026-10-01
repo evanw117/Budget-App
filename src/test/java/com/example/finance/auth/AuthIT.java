@@ -29,13 +29,14 @@ class AuthIT {
     @Autowired MockMvc mvc;
     @Autowired ObjectMapper json;
     @Autowired UserRepository users;
+    @Autowired com.example.finance.category.CategoryRepository categories;
     @Autowired PasswordEncoder passwords;
     @Autowired JwtDecoder decoder;
     @Autowired JwtEncoder encoder;
     static final String PASSWORD = "long-password-123";
 
     @BeforeEach
-    void cleanUsers() { users.deleteAll(); }
+    void cleanUsers() { categories.deleteAll(); users.deleteAll(); }
 
     @Test
     void registersUserWithSaltedHashAndNoSensitiveResponseFields() throws Exception {

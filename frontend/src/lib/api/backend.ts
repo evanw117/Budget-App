@@ -3,7 +3,10 @@ import "server-only";
 // Explicit allowlist: this is not an arbitrary URL proxy. The backend remains
 // responsible for credentials, roles, validation, and financial calculations.
 type BackendPath =
-  "/api/v1/auth/register" | "/api/v1/auth/login" | "/api/v1/users/me";
+  | "/api/v1/auth/register"
+  | "/api/v1/auth/login"
+  | "/api/v1/users/me"
+  | `/api/v1/${"accounts" | "categories" | "transactions"}${string}`;
 export async function backendRequest(
   path: BackendPath,
   options: RequestInit = {},

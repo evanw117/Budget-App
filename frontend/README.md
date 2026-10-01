@@ -1,4 +1,4 @@
-# Waymark frontend
+# Budget App frontend
 
 The frontend foundation for the Personal Finance & US Relocation Tracker.
 Built with Next.js App Router, TypeScript, Tailwind CSS, and Lucide icons.
@@ -14,7 +14,7 @@ npm run dev
 ```
 
 Open http://localhost:3000. The sample dashboard works without Java or Docker.
-To use registration/login, start the Phase 2 Spring Boot backend on port 8080.
+To use registration/login, start the Spring Boot backend on port 8080.
 Copy `.env.example` to `.env.local` only if its default address needs changing.
 `BACKEND_URL` is server-only; never give it a `NEXT_PUBLIC_` prefix.
 Do not copy the backend JWT signing secret into the frontend.
@@ -44,6 +44,9 @@ src/components/ui/          Card, Button, Input, loading/empty/error states
 src/components/layout/      Sidebar, header, native mobile navigation dialog
 src/components/dashboard/   Dashboard-specific presentation
 src/components/auth/        Login/registration/session form
+src/components/accounts/    Real account management and forms
+src/components/categories/  Real category management and forms
+src/components/finance/     Shared load/session/error handling
 src/lib/mock/               Fictional, fixed September 2026 USD data
 src/lib/services/           Small dashboard and auth adapters
 src/lib/api/                Browser fetch client and server-only backend client
@@ -54,7 +57,7 @@ src/types/                  Dashboard and authentication response contracts
 
 The dashboard is deliberately public and clearly marked as sample data, even
 when signed in. Nothing displayed represents the authenticated user's finances.
-The eight other navigation destinations are honest future-feature placeholders.
+Accounts and Categories are real authenticated management pages. Other financial navigation destinations remain future-feature placeholders.
 Dates and progress values are fixed examples; controls do not pretend to save,
 filter, connect accounts, or perform unavailable financial operations.
 
@@ -89,7 +92,7 @@ is introduced. Login throttling remains a later backend/deployment concern.
 
 ## Visual language
 
-Waymark is a first-draft product name. Off-white surfaces, dark slate typography,
+Budget App is the frontend product name. Off-white surfaces, dark slate typography,
 restrained teal accents, subtle borders, and a shared spacing scale keep the UI
 quiet and readable. The dashboard uses compact summaries, a transaction table,
 a category breakdown with text equivalents, recurring payments, and goal progress.
@@ -100,3 +103,13 @@ focus containment, and a labelled close button. Inputs have real labels, state
 messages have appropriate live roles, progress bars expose values, links identify
 the current page, and keyboard focus is visible. Reduced-motion preferences are
 respected. All navigation and account form controls work within this phase's scope.
+
+## Phase 4: real financial structure
+
+Start the Spring Boot backend with its database and JWT environment configured, then sign in through the frontend. Accounts and Categories use the private backend APIs through the Next.js financial proxy. You can add, edit, archive, and restore records. Phase 5 adds Transactions and calculated account balances; values are never combined across currencies. The dashboard stays a labelled sample preview. See [the Phase 4 guide](../docs/phase4-accounts-categories.md).
+
+## Phase 5
+
+Transactions now use the real API with date/account/type filters and pagination.
+The sidebar and page titles use Budget App. The internal session cookie is unchanged.
+See [the Phase 5 guide](../docs/phase5-transactions.md).

@@ -6,7 +6,7 @@ import { EmptyState } from "@/components/ui/states";
 import { buttonStyles } from "@/components/ui/button";
 export function generateStaticParams() {
   return navigation
-    .filter((item) => item.href !== "/")
+    .filter((item) => !["/", "/accounts", "/categories", "/transactions"].includes(item.href))
     .map((item) => ({ section: item.href.slice(1) }));
 }
 export async function generateMetadata({
